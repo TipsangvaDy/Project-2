@@ -213,6 +213,7 @@ void RadioLane::extract(int srcId) {
     Burst* current = _head;
     Burst* previous = nullptr;
     bool found = false;
+	bool first = true;
 
     while (current != nullptr) {
         if (current->src == srcId) {
@@ -230,8 +231,14 @@ void RadioLane::extract(int srcId) {
                 _last = previous;
             }
 
+            if (!first) {
+                cout << " ";
+            }
+
             cout << removed->id << ":" << removed->src
-                 << ":" << removed->len << endl;
+                 << ":" << removed->len;
+
+            first = false;
 
             delete removed;
             _count--;
@@ -241,8 +248,11 @@ void RadioLane::extract(int srcId) {
         }
     }
 
+    cout << endl;
+
     if (!found) {
         cout << "(empty)" << endl;
+    
     }
 
     if (_head == nullptr) {
